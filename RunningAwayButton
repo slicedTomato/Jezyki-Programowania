@@ -1,0 +1,55 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class Main {
+    public static void main(String[] args) {
+
+        JFrame frame = new JFrame("Uciekający Przycisk");
+        JButton button = new JButton("Nigdy mnie nie złapiesz!");
+
+        int distance = 50;
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setSize(1000, 900);
+        frame.setResizable(false);
+        button.setBounds(400, 425, 200, 50);
+
+        frame.getContentPane().add(button);
+        frame.setLayout(null);
+
+
+
+        frame.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                Point mouseLocation = e.getPoint();
+                Point buttonLocation = button.getLocation();
+                Point buttonCenter = new Point();
+
+                buttonCenter.x = buttonLocation.x + 100;
+                buttonCenter.y = buttonLocation.y + 25;
+
+                System.out.println("X: " + buttonLocation.x + "Y: " + buttonLocation.y);
+
+                int deltaX = (int)(mouseLocation.getX() - buttonCenter.getX());
+                int deltaY = (int)(mouseLocation.getY() - buttonCenter.getY());
+
+                if (mouseLocation.getX() > buttonLocation.getX() - distance &&
+                        mouseLocation.getX() < buttonLocation.getX() + 200 + distance &&
+                        mouseLocation.getY() > buttonLocation.getY() - distance &&
+                        mouseLocation.getY() < buttonLocation.getY() + 50 + distance) {
+
+                    if(button.getX() - (deltaX / 50) > 10 && button.getX() - (deltaX / 50) < 790 && button.getY() - (deltaY / 50) > 30 && button.getY() - (deltaY / 50) < 800) {
+                        button.setLocation(button.getX() - (deltaX / 50), button.getY() - (deltaY / 50));
+                    }
+                }
+
+            }
+        });
+
+        frame.setVisible(true);
+    }
+}
