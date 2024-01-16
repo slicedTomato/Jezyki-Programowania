@@ -78,3 +78,10 @@ public class DrawingCanvas extends JFrame {
 
     }
 }
+
+public class Main{
+    public static void main(String[] args) {
+
+        DrawingCanvas canvas = new DrawingCanvas();
+    }
+}
